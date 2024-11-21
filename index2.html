@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Lead</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            grid-column: span 2;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #4cae4c;
+        }
+        
+        #response {
+            grid-column: span 2;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="leadForm">
+        <input type="text" name="source" placeholder="Source" required>
+        <input type="text" name="status" placeholder="Status" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="assigned" placeholder="Assigned">
+        <input type="text" name="client_id" placeholder="Client ID">
+        <input type="text" name="tags" placeholder="Tags">
+        <input type="text" name="contact" placeholder="Contact">
+        <input type="text" name="title" placeholder="Title">
+        <input type="email" name="email" placeholder="Email">
+        <input type="url" name="website" placeholder="Website">
+        <input type="tel" name="phonenumber" placeholder="Phone">
+        <input type="text" name="company" placeholder="Company">
+        <input type="text" name="address" placeholder="Address">
+        <input type="text" name="city" placeholder="City">
+        <input type="text" name="state" placeholder="State">
+        <input type="text" name="country" placeholder="Country">
+        <input type="text" name="zip" placeholder="Zip Code">
+        <input type="text" name="default_language" placeholder="Default Language">
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="date" name="custom_contact_date" placeholder="Custom Contact Date">
+        <input type="checkbox" name="contacted_today" value="true"> Contacted Today
+        <input type="checkbox" name="is_public" value="true"> Is Public
+        <button type="submit">Add Lead</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {};
+
+            // Convert form data to JSON object
+            formData.forEach((value, key) => {
+                if (key === "contacted_today" || key === "is_public") {
+                    data[key] = value === "true";
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            // Define required fields
+            const requiredFields = ['source', 'status', 'name'];
+            for (const field of requiredFields) {
+                if (!data[field]) {
+                    document.getElementById('response').innerText = `Error: ${field} is required.`;
+                    return;
+                }
+            }
+
+            try {
+                const response = await fetch('https://yourdomain.com/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibGVhZHMiLCJuYW1lIjoiZWt0YSIsIkFQSV9USU1FIjoxNzIyMTY3ODM3fQ.b5qQJtPPbLxngF3FVY2rAbSkjt7xB44ta9pXOV8gqsQ',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                const responseData = await response.json();
+                document.getElementById('response').innerText = responseData.message;
+
+            } catch (error) {
+                console.error('Error details:', error); // Log error details for debugging
+                document.getElementById('response').innerText = 'Error adding lead: ' + error.message;
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>
